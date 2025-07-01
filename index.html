@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+
+<body>
+    <div class="wraper">
+        <!-- header -->
+        <div class="header">
+            <h1> Ludo luck</h1>
+
+            <button onclick="refresh()" title="Refresh">
+                <img src="diceimage/picref.png" alt="dice" width="50px" height="50px">
+            </button>
+        </div>
+        <!-- /header -->
+
+        <!-- mid wraper -->
+        <div class="mid-wraper">
+            <!-- left-box -->
+            <div class="left">
+                <div class="select-box">
+                    <h1 id="you_jerry"> you are Jerry</h1>
+                </div>
+                <div class="gif-box">
+                    <img src="diceimage/jerry-removebg-preview.png" alt="" id="je0">
+                    <img src="diceimage/winner jerry.gif" alt="win jerry" id="je1">
+                    <img src="diceimage/jerry lose.gif" alt="lose jerry" id="je2">
+                </div>
+            </div>
+            <!-- /left-box -->
+
+            <!-- mid-box -->
+            <div class="mid">
+                <h1 id="select"> plz select at least one player</h1>
+                <div class="who-winner">
+                    <h2 id="win">?</h2>
+                </div>
+                <h1>V/S</h1>
+                <div class="dice-wraper">
+                    <div class="dice">
+                        <h1>JERRY</h1>
+                        <div class="dice_box">
+                            <img src="diceimage/dice1.png" class="left-img" id="dices" onclick="tom(1)">
+                        </div>
+                    </div>
+                    <div class="dice">
+                        <h1>TOM</h1>
+                        <div class="dice_box">
+                            <img src="diceimage/dice1.png" class="right-img" id="dicess" onclick="tom(2)">
+                        </div>
+                    </div>
+                </div>
+                <div class="button">
+                    <button id="disable" onclick="slide()">Scroll Dice</button>
+                </div>
+            </div>
+            <div id="winner-gif">
+                <img src="diceimage/winner.gif" id="win-draw1" alt="winner">
+                <img src="diceimage/draw.gif" id="win-draw2" alt="draw">
+            </div>
+            <!-- /mid-box -->
+
+            <!-- right-box -->
+            <div class="right">
+                <div class="select-box">
+                    <h1 id="you_tom"> you are Tom</h1>
+                </div>
+
+                <div class="gif-box">
+                    <img src="diceimage/tom2pmg-removebg-preview.png" alt="" id="to0" width="100%" height="130%">
+                    <img src="diceimage/winner tom.gif" alt="win tom" id="to1">
+                    <img src="diceimage/tom lose.gif" alt="lose tom" id="to2">
+                </div>
+            </div>
+            <!-- right-box -->
+        </div>
+
+        <!-- mid wraper -->
+    </div>
+
+
+    <script>
+        let disable = document.getElementById("disable");
+        function tom(tab) {
+            let select2 = document.getElementById("select").style.display = 'none'
+            if (tab == 1) {
+                document.getElementById("you_jerry").style.display = 'block'
+                document.getElementById("je0").style.display = 'block'
+                document.getElementById("to0").style.display = 'none'
+                document.getElementById("you_tom").style.display = 'none'
+                disable.classList.add("yellowgreen");
+
+
+            }
+            else if (tab == 2) {
+                document.getElementById("you_tom").style.display = 'block'
+                document.getElementById("to0").style.display = 'block'
+                document.getElementById("je0").style.display = 'none'
+                document.getElementById("you_jerry").style.display = 'none'
+                disable.classList.add("yellowgreen");
+
+            }
+
+            else {
+                document.getElementById("select").style.display = 'block'
+
+            }
+
+        }
+
+
+        function slide() {
+
+            if (document.getElementById('you_tom').style.display == 'block' || document.getElementById('you_jerry').style.display == 'block') {
+                const play1 = Math.floor(Math.random() * 6) + 1;
+                const playdice1 = `diceimage/dice${play1}.png`
+                document.getElementById('dices').setAttribute('src', playdice1);
+
+                const play2 = Math.floor(Math.random() * 6) + 1;
+                const playdice2 = `diceimage/dice${play2}.png`
+                document.getElementById('dicess').setAttribute('src', playdice2);
+
+
+                if (play1 > play2) {
+                    document.getElementById('win').innerHTML = 'jerry is winner';
+                    document.getElementById('je0').style.display = 'none'
+                    document.getElementById('to0').style.display = 'none'
+                    document.getElementById('je1').style.display = 'block'
+                    document.getElementById('to2').style.display = 'block'
+                    document.getElementById('win-draw1').style.display = 'block'
+                }
+
+                else if (play1 < play2) {
+                    document.getElementById('win').innerHTML = 'tom is winner'
+                    document.getElementById('to0').style.display = 'none'
+                    document.getElementById('je0').style.display = 'none'
+                    document.getElementById('to1').style.display = 'block'
+                    document.getElementById('je2').style.display = 'block'
+                    document.getElementById('win-draw1').style.display = 'block'
+                    document.getElementById("je0").style.display = 'none'
+
+                }
+
+                else {
+                    document.getElementById('win').innerHTML = 'draw'
+                    document.getElementById('win-draw2').style.display = 'block'
+                    document.getElementById('to0').style.display = 'none'
+                    document.getElementById('je0').style.display = 'none'
+                    document.getElementById("you_jerry").style.display = 'none'
+                    document.getElementById("you_tom").style.display = 'none'
+                }
+
+            }
+
+
+            else (
+                document.getElementById('select').style.display = 'block'
+            )
+        }
+
+        function refresh() {
+            document.getElementById('win').innerHTML = '?'
+            document.getElementById('win-draw1').style.display = 'none'
+            document.getElementById('win-draw2').style.display = 'none'
+            document.getElementById('to0').style.display = 'none'
+            document.getElementById('to1').style.display = 'none'
+            document.getElementById('to2').style.display = 'none'
+            document.getElementById('je0').style.display = 'none'
+            document.getElementById('je1').style.display = 'none'
+            document.getElementById('je2').style.display = 'none'
+            document.getElementById("you_jerry").style.display = 'none'
+            document.getElementById("you_tom").style.display = 'none'
+            document.getElementById('select').style.display = 'none'
+
+            const playdice1 = `diceimage/dice1.png`
+            document.getElementById('dices').setAttribute('src', playdice1);
+
+            const playdice2 = `diceimage/dice1.png`
+            document.getElementById('dicess').setAttribute('src', playdice2);
+
+            disable.classList.remove("yellowgreen")
+        }
+    </script>
+</body>
+
+</html>
